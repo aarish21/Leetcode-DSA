@@ -1,16 +1,16 @@
 #include<cmath>
 class Solution {
 public:
-    int maxNoPiles(vector<int> piles) {
-        int res = 0;
-        for(int i:piles){
-            res = max(res,i);
-        }
+//     int maxNoPiles(vector<int> piles) {
+//         int res = 0;
+//         for(int i:piles){
+//             res = max(res,i);
+//         }
         
-        return res;
-    }
+//         return res;
+//     }
     int minEatingSpeed(vector<int>& piles, int h) {
-        int start=1,  end = maxNoPiles(piles);
+        int start=1,  end = 1000000000;
         int res = end;
         
         while(start<=end){
