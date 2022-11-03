@@ -11,7 +11,7 @@ public:
     }
     //  1 2 3 4 5
     int smallestDivisor(vector<int>& nums, int threshold) {
-        int start = 1,end = maxNo(nums),res=INT_MAX;
+        int start = 1,end = 1e6,res=INT_MAX;
         while(start<=end){
             int mid = (start+end)/2;
             int sum = 0;
