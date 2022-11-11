@@ -23,10 +23,7 @@ public:
               if(strs[0][j] != strs[i+1][j]){
                   idx = min(j,idx);
                   
-              } else {
-                  // idx = len-1;
-                  
-              }
+              } 
           }
         }
         cout<<idx;
