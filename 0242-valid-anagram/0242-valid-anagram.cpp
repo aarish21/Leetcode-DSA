@@ -9,8 +9,10 @@ public:
             m2[t[i]]++;
         }
         for(int i=0;i<s.length();i++){
-            if(!m1.count(t[i]) || m2[s[i]] !=m1[s[i]])
+            if(!m1.count(t[i]) || m1[t[i]] <= 0)
                 return false;
+            else
+                m1[t[i]]--;
         }
         return true;
         
