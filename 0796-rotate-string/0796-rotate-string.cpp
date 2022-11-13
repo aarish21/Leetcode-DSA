@@ -7,13 +7,14 @@ public:
         s[s.length()-1] = a;
     }
     bool rotateString(string s, string goal) {
-        if(s.length()!=goal.length())
-            return false;
-        for(int i=0;i<s.length();i++){
-            if(s==goal)
-                return true;
-            rotate(s);
-        }
-        return false;
+        // if(s.length()!=goal.length())
+        //     return false;
+        // for(int i=0;i<s.length();i++){
+        //     if(s==goal)
+        //         return true;
+        //     rotate(s);
+        // }
+        // return false;
+        return s.size() == goal.size() && (s + s).find(goal) != string::npos;
     }
 };
