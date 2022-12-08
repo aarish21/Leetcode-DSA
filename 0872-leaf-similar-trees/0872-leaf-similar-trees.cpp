@@ -22,11 +22,18 @@ public:
         helper(root->right,a);
     }
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        if(!root1 && !root2)
+            return true;
+        if((!root1 && root2) || root1 && !root2)
+            return false;
         vector<int> x,y;
         helper(root1,x);
         helper(root2,y);
+        
         if(x==y)
             return true;
+        
+        
         return false;
     }
 };
