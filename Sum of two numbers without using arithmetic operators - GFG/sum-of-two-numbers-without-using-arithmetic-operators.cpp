@@ -14,8 +14,12 @@ class Solution
     int sum(int a , int b)
     {
         //code here
-        
-        return a+b;
+        while(b!=0){
+            int c = a&b;
+            a = a^b;
+            b = c<<1;
+        }
+        return a;
     }
 };
 
