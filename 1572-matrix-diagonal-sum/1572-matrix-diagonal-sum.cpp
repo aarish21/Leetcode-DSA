@@ -1,15 +1,12 @@
 class Solution {
 public:
     int diagonalSum(vector<vector<int>>& mat) {
-        int sum=0;
+        int sum=0,n=mat.size();
         for(int i=0;i<mat.size();i++){
-            for(int j=0;j<mat.size();j++){
-                if(i==j || i+j == mat.size()-1){
-            
-                    sum+=mat[i][j];
-                }
-            }
+            sum+=mat[i][i];
+            sum+=mat[n-1-i][i];
         }
+        if(mat.size()%2==1) sum-=mat[n/2][n/2];
         return sum;
     }
 };
