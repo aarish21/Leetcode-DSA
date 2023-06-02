@@ -34,29 +34,28 @@ struct Node
   
 };
 */
-
+#include<iostream>
+using namespace std;
 class Solution
 {
     public:
-    Node* deleteNode(Node *head, int x)
+    Node* deleteNode(Node *head_ref, int x)
     {
       //Your code here
-    if(x==1){
-        head = head->next;
-        return head;
-    }
-    Node*temp = head;
-    
-    int count = 1;
-    while(count!=x-1){
-        temp = temp->next;
-        count++;
-    }
-    Node*temp2 = temp;
-    
-    temp->next = temp->next->next;
-    temp->prev = temp2;
-    return head;
+        Node*head = head_ref;
+        if(x==1) {
+            head = head->next;
+            head->prev = NULL;
+            return head;
+        }
+        int i=1;
+        while(i<x-1){
+            head=head->next;
+            i++;
+        }
+        head->next = head->next->next;
+        if(head->next!=NULL) head->next->prev = head;
+        return head_ref;
     }
 };
 
