@@ -32,16 +32,17 @@ struct Node {
 class Solution{
   public:
     //Function to check whether the list is palindrome.
-    Node* reverse(Node* ptr) {
-        Node* pre=NULL;
-        Node* nex=NULL;
-        while(ptr!=NULL) {
-            nex = ptr->next;
-            ptr->next = pre;
-            pre=ptr;
-            ptr=nex;
+     Node* reverse(Node* head) {
+        Node* prev = NULL;
+        Node* cur = head;
+        Node* forw = NULL;
+        while(cur!=NULL){
+            forw = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = forw;
         }
-        return pre;
+        return prev;
     }
     bool isPalindrome(Node *head)
     {
