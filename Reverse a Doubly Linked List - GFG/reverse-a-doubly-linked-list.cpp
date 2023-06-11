@@ -101,19 +101,13 @@ struct Node
 Node* reverseDLL(Node * head)
 {
     //Your code here
-    
-    Node *cur = head;
-    while(cur!=NULL){
-        Node* temp = cur->next;
-        cur->next = cur->prev;
-        cur->prev = temp;
-        if(cur->prev == NULL)
-            head = cur;
-        
-        cur = cur->prev;
-    }
-    
-    return head;
+    if(head==NULL || head->next==NULL) return head;
+    Node* newHead = reverseDLL(head->next);
+    newHead->prev = NULL;
+    head->prev = head->next;
+    head->next->next = head;
+    head->next = NULL;
+    return newHead;
 }
 
 
