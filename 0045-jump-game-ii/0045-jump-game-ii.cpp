@@ -1,19 +1,18 @@
 class Solution {
 public:
-    int helper(int ind,vector<int>& nums,vector<int> &dp){
-        if(ind >= nums.size()-1) return 0;
-        
-        if(dp[ind]!=-1) return dp[ind];
-        int jumps=1e9;
-        for(int i=1;i<=nums[ind];i++){
-            int j = 1+helper(i+ind,nums,dp);
-            jumps = min(jumps,j);
-        }
-        return dp[ind]=jumps;
-    }
     int jump(vector<int>& nums) {
-        vector<int> dp(nums.size(),-1);
+        int r=0,l=0,farthest,ans=0;
         
-        return helper(0,nums,dp);
+        while(r<nums.size()-1){
+            farthest=0;
+            for(int i=l;i<=r;i++){
+                farthest = max(farthest,i+nums[i]);
+            }
+            l=r+1;
+            r=farthest;
+            ans++;
+        }
+        return ans;
+        
     }
 };
