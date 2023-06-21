@@ -102,10 +102,22 @@ class Solution{
     int height(struct Node* node){
         // code here 
         if(node==NULL) return 0;
-        int l = height(node->left);
-        int r = height(node->right);
-        
-        return 1+max(l,r);
+        queue<Node*> q;
+        int level=0;
+        q.push(node);
+        while(!q.empty()){
+            int size = q.size();
+           
+            
+            for(int i=0;i<size;i++){
+                 Node* n = q.front();
+                 q.pop();
+                if(n->left) q.push(n->left);
+                if(n->right) q.push(n->right);
+            }
+            level++;
+        }
+        return level;
     }
 };
 
