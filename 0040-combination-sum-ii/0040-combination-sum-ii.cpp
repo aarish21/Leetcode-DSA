@@ -15,7 +15,6 @@ class Solution {
         s.push_back(arr[i]);
         solve(i + 1, arr, k, sum + arr[i], ans, s);
         s.pop_back();
-        // sum-=arr[i];
         while (i+1< arr.size() && arr[i] == arr[i + 1]) {
             i++;
         }
