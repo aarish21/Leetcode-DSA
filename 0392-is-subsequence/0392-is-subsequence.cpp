@@ -10,20 +10,38 @@ public:
     }
     bool isSubsequence(string s, string t) {
         int n=s.size(),m=t.size();
-        vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
-        // for(int i=0;i<=m;i++) dp[0][i] = true;
-        // for(int i=0;i<n;i++) dp[i][0] = false;
+       
+        
+        
+//          for(int i=0;i<=n;i++){
+//             for(int j=0;j<=m;j++){
+//                 if(i==0) dp[i][j] = true;
+//                 else if(j==0) dp[i][j] = false;
+//                 else if(s[i-1]==t[j-1])
+//                     dp[i][j] = dp[i-1][j-1];
+//                 else
+//                     dp[i][j] = dp[i][j-1];
+//             }
+//         }
+//         return dp[n][m];
+        
+        vector<bool> prev(m+1,false);
+        
+        
         for(int i=0;i<=n;i++){
+            vector<bool> cur(m+1,false);
             for(int j=0;j<=m;j++){
-                if(i==0) dp[i][j] = true;
-                else if(j==0) dp[i][j] = false;
+                if(i==0) cur[j] = true;
+                else if(j==0) cur[j] = false;
                 else if(s[i-1]==t[j-1])
-                    dp[i][j] = dp[i-1][j-1];
+                    cur[j] = prev[j-1];
                 else
-                    dp[i][j] = dp[i][j-1];
+                    cur[j] = cur[j-1];
+                
             }
+            prev = cur;
         }
-        return dp[n][m];
+        return prev[m];
      
     }
 };
