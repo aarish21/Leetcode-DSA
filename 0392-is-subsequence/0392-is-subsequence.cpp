@@ -1,15 +1,32 @@
 class Solution {
+    
 public:
-    bool f(string s,string t, int n,int m){
-       if(n==0) return true;
-        if(m==0) return false;
-        if(s[n-1]==t[m-1])
-           return f(s,t,n-1,m-1);
-        return  f(s,t,n,m-1);
-    }
     bool isSubsequence(string s, string t) {
-        if(s.size()==0) return true;
-        if(t.size()==0) return false;
-        return f(s,t,s.size(),t.size());
+        int m = s.length();
+        int n = t.length();
+        
+        // Initialize a 2D DP array dp, where dp[i][j] represents whether s[0:i-1] is a subsequence of t[0:j-1].
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, false));
+        
+        // An empty string s is always a subsequence of t.
+        for (int j = 0; j <= n; ++j) {
+            dp[0][j] = true;
+        }
+        
+        // Fill in the DP table.
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                // If the current characters match, move both pointers.
+                if (s[i - 1] == t[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    // If they don't match, continue checking if s[0:i-1] is a subsequence of t[0:j-2].
+                    dp[i][j] = dp[i][j - 1];
+                }
+            }
+        }
+        
+        // The result is in dp[m][n], which represents whether s[0:m-1] is a subsequence of t[0:n-1].
+        return dp[m][n];
     }
 };
