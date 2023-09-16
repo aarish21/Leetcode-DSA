@@ -11,6 +11,19 @@ public:
     bool isSubsequence(string s, string t) {
         int n=s.size(),m=t.size();
         vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
-        return f(s,t,s.size(),t.size(),dp);
+        // for(int i=0;i<=m;i++) dp[0][i] = true;
+        // for(int i=0;i<n;i++) dp[i][0] = false;
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=m;j++){
+                if(i==0) dp[i][j] = true;
+                else if(j==0) dp[i][j] = false;
+                else if(s[i-1]==t[j-1])
+                    dp[i][j] = dp[i-1][j-1];
+                else
+                    dp[i][j] = dp[i][j-1];
+            }
+        }
+        return dp[n][m];
+     
     }
 };
