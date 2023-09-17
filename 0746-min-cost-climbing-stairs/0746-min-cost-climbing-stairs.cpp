@@ -9,9 +9,11 @@ public:
         return dp[ind] = min(left,right);
     }
     int minCostClimbingStairs(vector<int>& cost) {
-        vector<int> dp(cost.size()+1,-1);
-        int first = f(0,cost.size()-1,cost,dp);
-        int second = f(1,cost.size()-1,cost,dp);
-        return min(first,second);
+        vector<int> dp(cost.size()+2,0);
+        int n = cost.size()-1;
+        for(int ind=n;ind>=0;ind--){
+            dp[ind] = cost[ind]+ min(dp[ind+1],dp[ind+2]);
+        }
+        return min(dp[0],dp[1]);
     }
 };
