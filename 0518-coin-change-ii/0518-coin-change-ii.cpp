@@ -1,23 +1,29 @@
 class Solution {
 public:
-    int helper(int ind,int amount, vector<int> &coin,vector<vector<int>> &dp){
-    
-        if(ind == 0){
-            return (amount%coin[0]==0);
-            
-            
+     int f(int i, vector<int>& coins, int amount, vector<vector<int>> &dp){
+        if(amount==0) return 1;
+        if(i==0){
+            return 0;
         }
-        if(dp[ind][amount]!=-1) return dp[ind][amount];
-        int notTake = helper(ind-1,amount,coin,dp);
-        int take = 0;
-        if(coin[ind]<=amount) 
-            take = helper(ind,amount-coin[ind],coin,dp);
-        return dp[ind][amount] = take+notTake;
-        
-        
+        if(dp[i][amount] != -1) dp[i][amount];
+        int take = 1e9;
+        if(coins[i]<=amount)
+            take = 1+f(i,coins,amount-coins[i],dp);
+        int notTake = f(i-1,coins,amount,dp);
+        return dp[i][amount] = min(take,notTake);
     }
     int change(int amount, vector<int>& coins) {
-        vector<vector<int>> dp(coins.size(),vector<int>(amount+1,-1));
-        return helper(coins.size()-1, amount, coins, dp);
+       
+        vector<vector<int>> dp(coins.size()+1,vector<int>(amount+1,0));
+        for(int i=0;i<=coins.size();i++) dp[i][0] = 1;
+        
+        for(int i=1;i<=coins.size();i++){
+            for(int j=1;j<=amount;j++){
+                dp[i][j] = dp[i-1][j];
+                if(coins[i-1]<=j)
+                    dp[i][j] += dp[i][j - coins[i - 1]] ;
+            }
+        }
+        return dp[coins.size()][amount];
     }
 };
