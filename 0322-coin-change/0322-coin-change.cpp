@@ -1,45 +1,33 @@
 class Solution {
 public:
-    int helper(int ind,int amount, vector<int> &coin,vector<vector<int>> &dp){
-    
-        if(ind == 0){
-            if(amount%coin[0]==0) return amount/coin[0];
-            
-            else return 1e9;
+    int f(int i, vector<int>& coins, int amount, vector<vector<int>> &dp){
+        if(amount==0) return 0;
+        if(i==0){
+            return 1e9;
         }
-        if(dp[ind][amount]!=-1) return dp[ind][amount];
-        int notTake = helper(ind-1,amount,coin,dp);
+        if(dp[i-1][amount] != -1) dp[i][amount];
         int take = 1e9;
-        if(coin[ind]<=amount) 
-            take = 1 + helper(ind,amount-coin[ind],coin,dp);
-        return dp[ind][amount] = min(take,notTake);
-        
-        
+        if(coins[i-1]<=amount)
+            take = 1+f(i,coins,amount-coins[i-1],dp);
+        int notTake = f(i-1,coins,amount,dp);
+        return dp[i-1][amount] = min(take,notTake);
     }
-    int coinChange(vector<int>& arr, int amount) {
-        int n = arr.size();
-        vector<int> prev(amount+1,0),cur(amount+1,0);
-       for(int i=0; i<=amount; i++){
-        if(i%arr[0] == 0)  
-            prev[i] = i/arr[0];
-        else prev[i] = 1e9;
-    }
-    
-    for(int ind = 1; ind<n; ind++){
-        for(int target = 0; target<=amount; target++){
-            
-            int notTake = 0 + prev[target];
-            int take = 1e9;
-            if(arr[ind]<=target)
-                take = 1 + cur[target - arr[ind]];
-                
-             cur[target] = min(notTake, take);
+    int coinChange(vector<int>& coins, int amount) {
+        vector<vector<int>> dp(coins.size()+1,vector<int>(amount+1,0));
+        for(int j=1;j<=amount;j++) dp[0][j] = 1e9;
+        
+        for(int i=1;i<=coins.size();i++){
+            for(int j=1;j<=amount;j++){
+                int take = 1e9;
+                if(coins[i-1]<=j)
+                    dp[i][j] = min(dp[i - 1][j], dp[i][j - coins[i - 1]] + 1);
+                else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
         }
-        prev = cur;
-    }
-    
-    int ans = prev[amount];
-    if(ans >=1e9) return -1;
-    return ans;
+        
+        int ans = dp[coins.size()][amount];
+        return ans==1e9 ? -1 : ans;
     }
 };
